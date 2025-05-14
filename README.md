@@ -6,8 +6,6 @@ Environment definitions for EPIC-maintained conda installations.
 
 ```
 source /gpfs/f6/bil-fire8/world-shared/epic-conda/miniconda3/etc/profile.d/conda.sh
-
-# Swap out "epic-default" for the desired environment
 conda activate epic-default
 ```
 
