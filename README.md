@@ -1,4 +1,4 @@
-Environment definitions for EPIC-maintained conda installations.
+Environment definitions for UFS conda installations.
 
 # Usage
 
@@ -6,9 +6,9 @@ Environment definitions for EPIC-maintained conda installations.
 
 ```
 source /gpfs/f6/bil-fire8/world-shared/epic-conda/miniconda3/etc/profile.d/conda.sh
-conda activate epic-default
+conda activate ufs-default
 ```
 
 # Environment Descriptions
 
-* `environment-epic-default.yaml`: Installs the newest version of select packages. Pinning is avoided whenever possible.
+* `environment-ufs-default.yaml`: Installs the newest version of select packages. Pinning is avoided whenever possible.

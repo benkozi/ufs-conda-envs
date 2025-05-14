@@ -1,4 +1,4 @@
-name: epic-default
+name: ufs-default
 channels:
   - conda-forge
   - ufs-community
@@ -10,3 +10,4 @@ dependencies:
   - pydantic
   - pytest
   - netcdf4
+  - pyyaml
