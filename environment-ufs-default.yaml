@@ -1,0 +1,13 @@
+name: ufs-default
+channels:
+  - conda-forge
+  - ufs-community
+  - nodefaults
+dependencies:
+  - uwtools
+  - scipy
+  - xarray
+  - pydantic
+  - pytest
+  - netcdf4
+  - pyyaml
