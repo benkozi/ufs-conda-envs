@@ -20,4 +20,4 @@ conda activate ufs-default
 
 # Environment Descriptions
 
-* `environment-ufs-default.yaml`: Installs the newest version of select packages. Pinning is avoided whenever possible.
+* `python-ufs-default`: Contains the newest version of select packages. Pinning is avoided whenever possible.
