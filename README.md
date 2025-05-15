@@ -5,7 +5,16 @@ Environment definitions for UFS conda installations.
 ## Gaea-C6
 
 ```
-source /gpfs/f6/bil-fire8/world-shared/epic-conda/miniconda3/etc/profile.d/conda.sh
+# As a module -->
+module use /gpfs/f6/bil-fire8/world-shared/ufs-conda/modulefiles
+module load python-ufs-default
+which python
+python --version
+```
+
+```
+# With conda activate -->
+source /gpfs/f6/bil-fire8/world-shared/ufs-conda/miniconda3/etc/profile.d/conda.sh
 conda activate ufs-default
 ```
 
