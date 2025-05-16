@@ -2,7 +2,7 @@
 
 set -eux
 
-INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda
+source ./env.sh
 
 if [ -e "${INSTALL_DIR}" ]; then
   printf "ERROR: %s exists. Remove the build directory before proceeding" ${INSTALL_DIR}
