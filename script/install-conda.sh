@@ -2,7 +2,8 @@
 
 set -eux
 
-INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda
+#INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda # gaea-c6
+INSTALL_DIR=/scratch3/NAGAPE/epic/ufs-conda # hera
 
 if [ -e "${INSTALL_DIR}" ]; then
   printf "ERROR: %s exists. Remove the build directory before proceeding" ${INSTALL_DIR}
