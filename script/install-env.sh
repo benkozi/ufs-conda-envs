@@ -5,7 +5,7 @@ set -eux
 #INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda # gaea-c6
 #MODULEFILES=../modulefiles/gaeac6/python-ufs-default
 
-INSTALL_DIR=/scratch3/NAGAPE/epic/role-epic/ufs-conda # hera
+INSTALL_DIR=/scratch3/NAGAPE/epic/ufs-conda # hera
 MODULEFILES=../modulefiles/hera/python-ufs-default
 
 # ----------

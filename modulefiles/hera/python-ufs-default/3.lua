@@ -6,4 +6,4 @@ help([[
 conflict("python-ufs-default")
 
 -- Set environment variables
-prepend_path("PATH","/scratch3/NAGAPE/epic/role-epic/ufs-conda/miniconda3/envs/ufs-default/bin")
+prepend_path("PATH","/scratch3/NAGAPE/epic/ufs-conda/miniconda3/envs/ufs-default/bin")
