@@ -1,8 +1,31 @@
 #!/bin/bash
 
-INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda
+UCE_PLATFORM="${UCE_PLATFORM:?'UCE_PLATFORM environment variable is required'}"
+UCE_CONDA_ENV="${UCE_CONDA_ENV:-default}"
 
-CONDA_BIN="${INSTALL_DIR}"/miniconda3/condabin/conda
-CONDA_ENV_DEF_DIR=../environment
-MODULEFILES=../modulefiles/
-MODULEFILES_INSTALL_DIR="${INSTALL_DIR}"/modulefiles
+case "${UCE_CONDA_ENV}" in
+    "default"|"land-da-wflow")
+        ;;
+    *)
+        echo "ERROR: Invalid UCE_CONDA_ENV '${UCE_CONDA_ENV}'. Valid values are 'default' or 'land-da-wflow'." >&2
+        exit 1
+        ;;
+esac
+
+case "${UCE_PLATFORM}" in
+    "gaeac6")
+        _INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda
+        ;;
+    "hera")
+        _INSTALL_DIR=/scratch3/NAGAPE/epic/ufs-conda
+        ;;
+    *)
+        echo "ERROR: Invalid UCE_PLATFORM '${UCE_PLATFORM}'. Valid values are 'hera' or 'gaeac6'." >&2
+        exit 1
+        ;;
+esac
+
+_CONDA_BIN="${_INSTALL_DIR}"/miniconda3/condabin/conda
+_CONDA_ENV_DEF_DIR=../environment
+_MODULEFILES=../modulefiles/${UCE_PLATFORM}
+_MODULEFILES_INSTALL_DIR="${_INSTALL_DIR}"/modulefiles

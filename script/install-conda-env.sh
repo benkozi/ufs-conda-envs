@@ -4,6 +4,4 @@ set -eux
 
 source ./env.sh
 
-CONDA_ENV_TO_INSTALL="ufs-default"
-
-"${CONDA_BIN}" env create -f "${CONDA_ENV_DEF_DIR}"/environment-${CONDA_ENV_TO_INSTALL}.yaml
+"${_CONDA_BIN}" env create -f "${_CONDA_ENV_DEF_DIR}"/environment-ufs-"${UCE_CONDA_ENV}".yaml
