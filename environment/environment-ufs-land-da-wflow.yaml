@@ -6,7 +6,6 @@ channels:
 dependencies:
   - cartopy
   - f90nml
-  - jcb
   - jinja2
   - matplotlib
   - netCDF4
@@ -16,3 +15,5 @@ dependencies:
   - scipy
   - uwtools
   - xarray
+  - pip:
+    - git+https://github.com/NOAA-EMC/jcb.git@develop
