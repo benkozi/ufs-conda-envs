@@ -1,4 +1,4 @@
-name: ufs-land-da-workflow
+name: ufs-land-da-wflow
 channels:
   - conda-forge
   - ufs-community

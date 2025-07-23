@@ -1,5 +1,5 @@
 help([[
-  Set environment variables for __HELP_DESCRIPTION__
+  "Set environment variables for __HELP_DESCRIPTION__"
 ]])
 
 -- Make sure another version of the same package is not already loaded
