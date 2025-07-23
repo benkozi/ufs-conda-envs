@@ -4,7 +4,7 @@ from enum import StrEnum, unique
 from pathlib import Path
 
 import typer
-from pydantic import BaseModel
+from pydantic import BaseModel, computed_field
 from typing_extensions import Annotated
 
 app = typer.Typer()
@@ -24,47 +24,41 @@ class CreateContext(BaseModel):
     env_key: EnvKey
     platform: Platform
     
-    @property
+    @computed_field
     def install_dir(self) -> Path:
-        return Path(PLATFORM_CONFIG[self.platform]["install_dir"])
+        return Path(PLATFORM_CONFIG[self.platform]["install_dir"]).absolute().resolve()
     
-    @property
+    @computed_field
     def conda_bin(self) -> Path:
-        return Path(PLATFORM_CONFIG[self.platform]["conda_bin"])
+        return Path(PLATFORM_CONFIG[self.platform]["conda_bin"]).absolute().resolve()
     
-    @property
+    @computed_field
     def help_description(self) -> str:
         return ENV_CONFIG[self.env_key]["help_description"]
     
-    @property
+    @computed_field
     def module_name(self) -> str:
         return ENV_CONFIG[self.env_key]["module_name"]
     
-    @property
+    @computed_field
     def conda_env_name(self) -> str:
         return f"ufs-{self.env_key.value}"
     
-    @property
+    @computed_field
     def conda_env_def_dir(self) -> Path:
-        return Path("../environment")
+        return Path("../environment").absolute().resolve()
     
-    @property
-    def modulefiles(self) -> Path:
-        return Path(f"../modulefiles/{self.platform.value}")
-    
-    @property
+    @computed_field
     def modulefiles_install_dir(self) -> Path:
-        return self.install_dir / "modulefiles"
+        return (self.install_dir / "modulefiles").absolute().resolve()
 
 # Configuration dictionaries
 PLATFORM_CONFIG = {
     Platform.gaeac6: {
         "install_dir": "/gpfs/f6/bil-fire8/world-shared/ufs-conda",
-        "conda_bin": "/gpfs/f6/bil-fire8/world-shared/ufs-conda/miniconda3/condabin/conda"
     },
     Platform.hera: {
         "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
-        "conda_bin": "/scratch3/NAGAPE/epic/ufs-conda/miniconda3/condabin/conda"
     },
     Platform.docker: {
         "install_dir": "/opt/ufs-conda",
@@ -90,12 +84,7 @@ def create(
 ):
     """Create a UFS conda environment."""
     ctx = CreateContext(env_key=env_key, platform=platform)
-    typer.echo(f"Creating environment: {ctx.env_key.value} on platform: {ctx.platform.value}")
-    
-    typer.echo(f"Install directory: {ctx.install_dir}")
-    typer.echo(f"Conda binary: {ctx.conda_bin}")
-    typer.echo(f"Environment name: {ctx.conda_env_name}")
-    typer.echo(f"Module name: {ctx.module_name}")
+    typer.echo(f"{ctx=}")
 
 if __name__ == "__main__":
     app()
