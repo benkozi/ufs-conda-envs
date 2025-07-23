@@ -8,6 +8,8 @@ from pydantic import BaseModel, computed_field
 from typing_extensions import Annotated
 
 app = typer.Typer()
+create_app = typer.Typer()
+app.add_typer(create_app, name="create")
 
 @unique
 class Platform(StrEnum):
@@ -77,8 +79,8 @@ ENV_CONFIG = {
     }
 }
 
-@app.command()
-def create(
+@create_app.command()
+def env(
     env_key: Annotated[EnvKey, typer.Option("--env-key", help="Conda environment type")] = EnvKey.default,
     platform: Annotated[Platform, typer.Option("--platform", help="Target platform")] = Platform.docker
 ):
