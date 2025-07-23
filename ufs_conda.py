@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-
+import subprocess
 from enum import StrEnum, unique
 from pathlib import Path
 
@@ -23,31 +22,35 @@ class EnvKey(StrEnum):
 class CreateContext(BaseModel):
     env_key: EnvKey
     platform: Platform
-    
+
     @computed_field
     def install_dir(self) -> Path:
         return Path(PLATFORM_CONFIG[self.platform]["install_dir"]).absolute().resolve()
-    
+
     @computed_field
     def conda_bin(self) -> Path:
-        return Path(PLATFORM_CONFIG[self.platform]["conda_bin"]).absolute().resolve()
-    
+        return self.install_dir / "miniconda3" / "bin" / "condabin" / "conda"
+
     @computed_field
     def help_description(self) -> str:
         return ENV_CONFIG[self.env_key]["help_description"]
-    
+
     @computed_field
     def module_name(self) -> str:
         return ENV_CONFIG[self.env_key]["module_name"]
-    
+
     @computed_field
     def conda_env_name(self) -> str:
         return f"ufs-{self.env_key.value}"
-    
+
     @computed_field
     def conda_env_def_dir(self) -> Path:
-        return Path("../environment").absolute().resolve()
-    
+        return Path("environment").absolute().resolve(strict=True)
+
+    @computed_field
+    def modulefile_template(self) -> Path:
+        return Path("template/python-3.lua.template").absolute().resolve(strict=True)
+
     @computed_field
     def modulefiles_install_dir(self) -> Path:
         return (self.install_dir / "modulefiles").absolute().resolve()
@@ -62,7 +65,6 @@ PLATFORM_CONFIG = {
     },
     Platform.docker: {
         "install_dir": "/opt/ufs-conda",
-        "conda_bin": "conda"
     }
 }
 
@@ -82,13 +84,42 @@ def create(
     env_key: Annotated[EnvKey, typer.Option("--env-key", help="Conda environment type")] = EnvKey.default,
     platform: Annotated[Platform, typer.Option("--platform", help="Target platform")] = Platform.docker
 ):
-    """Create a UFS conda environment."""
     ctx = CreateContext(env_key=env_key, platform=platform)
     typer.echo(f"{ctx=}")
+    install_conda_env(ctx)
 
 @app.command()
 def remove():
     raise NotImplementedError
+
+def install_conda_env(ctx: CreateContext) -> None:
+    # Create conda environment from yaml file
+    env_file = ctx.conda_env_def_dir / f"environment-ufs-{ctx.env_key.value}.yaml"
+    subprocess.check_call([
+        str(ctx.conda_bin),
+        "env", "create",
+        "-f", str(env_file)
+    ])
+
+    # Create modulefiles directory and process templates
+    module_dst = ctx.install_dir / "modulefiles" / f"python-{ctx.conda_env_name}"
+    module_dst.mkdir(parents=True, exist_ok=True)
+
+    # Create modulefiles install directory
+    ctx.modulefiles_install_dir.mkdir(parents=True, exist_ok=True)
+
+    # Read template file
+    template_content = ctx.modulefile_template.read_text()
+
+    # Process template using string replacement
+    processed_content = template_content.replace("__HELP_DESCRIPTION__", ctx.help_description)
+    processed_content = processed_content.replace("__INSTALL_DIR__", str(ctx.install_dir))
+    processed_content = processed_content.replace("__CONDA_ENV_NAME__", ctx.conda_env_name)
+
+    # Write processed template to destination
+    output_file = module_dst / "3.lua"
+    output_file.write_text(processed_content)
+
 
 if __name__ == "__main__":
     app()

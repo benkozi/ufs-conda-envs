@@ -1,33 +1,22 @@
-FROM continuumio/miniconda3
+FROM ubuntu
 
-RUN apt-get update --yes && apt-get install --yes tmux vim less lmod
+RUN apt-get update --yes && apt-get install --yes tmux vim less lmod wget
 RUN . /usr/share/lmod/lmod/init/bash && module --version
 
-COPY environment.yaml /opt/build/environment.yaml
-RUN conda env create -f /opt/build/environment.yaml
+COPY ./template /opt/build/template
+COPY ./environment /opt/build/environment
+COPY ufs_conda.py /opt/build
+COPY init.sh /opt/build
+COPY environment.yaml /opt/build
 
-COPY environment /opt/build/environment/
-COPY script /opt/build/script/
-COPY modulefiles /opt/build/modulefiles
+WORKDIR /opt/build
 
-WORKDIR /opt/build/script
+RUN bash init.sh
 
-ENV UCE_CONDA_ENV=default
-ENV UCE_PLATFORM=docker
-RUN bash install-env.sh
-
-RUN . /usr/share/lmod/lmod/init/bash && \
-      module use /opt/ufs-conda/modulefiles && \ #tdk: need modulefiles in docker to account for path
-      module load python-ufs-default && \
-      which python && \
-      python --version
-
-ENV UCE_CONDA_ENV=land-da-wflow
-ENV UCE_PLATFORM=docker
-RUN bash install-env.sh
+RUN conda run -n ufs-conda-envs --no-capture-output python ufs_conda.py create --env-key default --platform docker
 
 RUN . /usr/share/lmod/lmod/init/bash && \
       module use /opt/ufs-conda/modulefiles && \
-      module load python-ufs-land-da-wflow && \
+      module load python-ufs-default && \
       which python && \
       python --version
