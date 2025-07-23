@@ -4,7 +4,11 @@ UCE_PLATFORM="${UCE_PLATFORM:?'UCE_PLATFORM environment variable is required'}"
 UCE_CONDA_ENV="${UCE_CONDA_ENV:-default}"
 
 case "${UCE_CONDA_ENV}" in
-    "default"|"land-da-wflow")
+    "default")
+        _CONDA_ENV_NAME="ufs-default"
+        ;;
+    "land-da-wflow")
+        _CONDA_ENV_NAME="ufs-land_da"
         ;;
     *)
         echo "ERROR: Invalid UCE_CONDA_ENV '${UCE_CONDA_ENV}'. Valid values are 'default' or 'land-da-wflow'." >&2
