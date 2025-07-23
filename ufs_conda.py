@@ -8,8 +8,6 @@ from pydantic import BaseModel, computed_field
 from typing_extensions import Annotated
 
 app = typer.Typer()
-create_app = typer.Typer()
-app.add_typer(create_app, name="create")
 
 @unique
 class Platform(StrEnum):
@@ -79,14 +77,18 @@ ENV_CONFIG = {
     }
 }
 
-@create_app.command()
-def env(
+@app.command()
+def create(
     env_key: Annotated[EnvKey, typer.Option("--env-key", help="Conda environment type")] = EnvKey.default,
     platform: Annotated[Platform, typer.Option("--platform", help="Target platform")] = Platform.docker
 ):
     """Create a UFS conda environment."""
     ctx = CreateContext(env_key=env_key, platform=platform)
     typer.echo(f"{ctx=}")
+
+@app.command()
+def remove():
+    raise NotImplementedError
 
 if __name__ == "__main__":
     app()
