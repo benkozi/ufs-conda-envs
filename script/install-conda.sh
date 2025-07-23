@@ -13,3 +13,5 @@ installer=Miniconda3-latest-Linux-x86_64.sh
 wget https://repo.anaconda.com/miniconda/${installer}
 bash ./${installer} -bfp "${_INSTALL_DIR}/miniconda3"
 rm ${installer}
+
+#tdk: add install option for the default environment
