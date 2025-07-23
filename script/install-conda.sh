@@ -2,6 +2,8 @@
 
 set -eux
 
+#INSTALL_DIR=/gpfs/f6/bil-fire8/world-shared/ufs-conda # gaea-c6
+INSTALL_DIR=/scratch3/NAGAPE/epic/ufs-conda # hera
 source ./env.sh
 
 if [ -e "${INSTALL_DIR}" ]; then
