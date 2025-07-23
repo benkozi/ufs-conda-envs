@@ -8,7 +8,7 @@ case "${UCE_CONDA_ENV}" in
         _CONDA_ENV_NAME="ufs-default"
         ;;
     "land-da-wflow")
-        _CONDA_ENV_NAME="ufs-land_da"
+        _CONDA_ENV_NAME="ufs-land-da-workflow"
         ;;
     *)
         echo "ERROR: Invalid UCE_CONDA_ENV '${UCE_CONDA_ENV}'. Valid values are 'default' or 'land-da-wflow'." >&2
@@ -31,5 +31,4 @@ esac
 
 _CONDA_BIN="${_INSTALL_DIR}"/miniconda3/condabin/conda
 _CONDA_ENV_DEF_DIR=../environment
-_MODULEFILES=../modulefiles/${UCE_PLATFORM}
 _MODULEFILES_INSTALL_DIR="${_INSTALL_DIR}"/modulefiles

@@ -1,0 +1,9 @@
+help([[
+  Set environment variables for __HELP_DESCRIPTION__
+]])
+
+-- Make sure another version of the same package is not already loaded
+conflict("__MODULE_NAME__")
+
+-- Set environment variables
+prepend_path("PATH","__INSTALL_DIR__/miniconda3/envs/__CONDA_ENV_NAME__/bin")
