@@ -121,7 +121,7 @@ def install_conda_env(ctx: CreateContext) -> None:
         "__HELP_DESCRIPTION__", ctx.help_description
     )
     processed_content = processed_content.replace(
-        "__PREPEND_PATH__", ctx.prepend_path
+        "__PREPEND_PATH__", str(ctx.prepend_path)
     )
 
     # Write processed template to destination

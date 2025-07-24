@@ -7,38 +7,17 @@ COPY environment.yaml /opt/build/environment.yaml
 RUN conda env create -f /opt/build/environment.yaml
 RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda --help
 
-COPY src /opt/build/src
+COPY src/ufs_conda /opt/build/src/ufs_conda/
+COPY pyproject.toml /opt/build
 COPY template /opt/build/template/
 COPY environment /opt/build/environment/
 
 WORKDIR /opt/build
 
-#ENV UCE_CONDA_ENV=default
-#ENV UCE_PLATFORM=docker
-#RUN bash install-env.sh
+RUN conda run -n ufs-conda-envs --no-capture-output pip install .
 
-#RUN conda run -n ufs-conda-envs --no-capture-output python ufs_conda.py create --env-key default --platform docker
-#
-#COPY ./script /opt/build/script/
-#
-#RUN conda run -n ufs-conda-envs --no-capture-output pytest --expected-output=/opt/conda/envs/ufs-default/bin/python script/test_env.py
-#
-#RUN conda run -n ufs-conda-envs --no-capture-output python ufs_conda.py create --env-key land-da-wflow --platform docker
-#RUN conda run -n ufs-conda-envs --no-capture-output pytest --expected-output=/opt/conda/envs/ufs-default/bin/python script/test_env.py
+RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda create --env-key default --platform docker
+RUN conda run -n ufs-conda-envs --no-capture-output pytest --env-key=default src/test/docker_env_verify.py
 
-#RUN . /usr/share/lmod/lmod/init/bash && \
-#      module use /opt/conda/modulefiles && \
-#      module load python-ufs-default && \
-#      which python
-
-
-
-#ENV UCE_CONDA_ENV=land-da-wflow
-#ENV UCE_PLATFORM=docker
-#RUN bash install-env.sh
-#
-#RUN . /usr/share/lmod/lmod/init/bash && \
-#      module use /opt/ufs-conda/modulefiles && \
-#      module load python-ufs-land-da-wflow && \
-#      which python && \
-#      python --version
+RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda create --env-key land-da-wflow --platform docker
+RUN conda run -n ufs-conda-envs --no-capture-output pytest --env-key=land-da-wflow src/test/docker_env_verify.py
