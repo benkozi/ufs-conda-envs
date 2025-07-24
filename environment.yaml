@@ -8,4 +8,4 @@ dependencies:
   - pytest
   - pytest-mock
   - pip:
-      - git+https://github.com/benkozi/ufs-conda-envs@feat/i3-land-da
+      - git+https://github.com/benkozi/ufs-conda-envs@develop
