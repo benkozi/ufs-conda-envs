@@ -1,15 +1,13 @@
 import subprocess
-import pytest
 
 
-def test_which_python_output():
+def test_which_python_output(expected_output: str) -> None:
     command = (
         ". /usr/share/lmod/lmod/init/bash && "
         "module use /opt/conda/modulefiles && "
         "module load python-ufs-default && "
         "which python"
     )
-    expected_output = "/opt/conda/bin/python"
     result = subprocess.check_output(
         command,
         shell=True

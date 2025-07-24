@@ -20,7 +20,10 @@ RUN conda run -n ufs-conda-envs --no-capture-output python ufs_conda.py create -
 
 COPY ./script /opt/build/script/
 
-RUN conda run -n ufs-conda-envs --no-capture-output pytest script/test_env.py
+RUN conda run -n ufs-conda-envs --no-capture-output pytest --expected-output=/opt/conda/envs/ufs-default/bin/python script/test_env.py
+
+RUN conda run -n ufs-conda-envs --no-capture-output python ufs_conda.py create --env-key land-da-wflow --platform docker
+RUN conda run -n ufs-conda-envs --no-capture-output pytest --expected-output=/opt/conda/envs/ufs-default/bin/python script/test_env.py
 
 #RUN . /usr/share/lmod/lmod/init/bash && \
 #      module use /opt/conda/modulefiles && \
