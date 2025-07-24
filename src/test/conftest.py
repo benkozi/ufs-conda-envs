@@ -2,16 +2,18 @@ from typing import Any
 
 import pytest
 
+from ufs_conda.core import EnvKey
+
 
 def pytest_addoption(parser: Any) -> None:
     parser.addoption(
-        "--expected-output",
+        "--env-key",
         action="store",
-        help="Expected Python executable path",
+        help=str(tuple(EnvKey)),
         default="",
     )
 
 
 @pytest.fixture
-def expected_output(request: Any) -> str:
-    return request.config.getoption("--expected-output")
+def env_key(request: Any) -> EnvKey:
+    return EnvKey(request.config.getoption("--env-key"))

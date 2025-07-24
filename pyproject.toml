@@ -10,6 +10,3 @@ authors = [
 
 [project.scripts]
 ufs-conda = "ufs_conda.ufs_conda_cli:app"
-
-[project.urls]
-"Homepage" = "https://github.com/yourname/your-package"

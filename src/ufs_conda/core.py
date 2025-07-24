@@ -71,6 +71,10 @@ class CreateContext(BaseModel):
     def modulefiles_install_dir(self) -> Path:
         return (self.install_dir / "modulefiles").absolute().resolve()
 
+    @computed_field
+    def prepend_path(self) -> Path:
+        return Path(self.conda_root / "envs" / self.conda_env_name / "bin").absolute().resolve()
+
 
 # Configuration dictionaries
 PLATFORM_CONFIG = {
@@ -116,9 +120,8 @@ def install_conda_env(ctx: CreateContext) -> None:
     processed_content = template_content.replace(
         "__HELP_DESCRIPTION__", ctx.help_description
     )
-    processed_content = processed_content.replace("__CONDA_ROOT__", str(ctx.conda_root))
     processed_content = processed_content.replace(
-        "__CONDA_ENV_NAME__", ctx.conda_env_name
+        "__PREPEND_PATH__", ctx.prepend_path
     )
 
     # Write processed template to destination

@@ -6,4 +6,4 @@ help([[
 conflict("python-ufs-*")
 
 -- Set environment variables
-prepend_path("PATH","__CONDA_ROOT__/envs/__CONDA_ENV_NAME__/bin")
+prepend_path("PATH","__PREPEND_PATH__")

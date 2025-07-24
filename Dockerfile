@@ -5,6 +5,7 @@ RUN . /usr/share/lmod/lmod/init/bash && module --version
 
 COPY environment.yaml /opt/build/environment.yaml
 RUN conda env create -f /opt/build/environment.yaml
+RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda --help
 
 COPY src /opt/build/src
 COPY template /opt/build/template/
