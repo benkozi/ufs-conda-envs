@@ -1,6 +1,22 @@
 FROM continuumio/miniconda3
 
-RUN apt-get update --yes && apt-get install --yes tmux vim less
+RUN apt-get update --yes && apt-get install --yes tmux vim less lmod
+RUN . /usr/share/lmod/lmod/init/bash && module --version
 
-COPY environment*.yaml .
-RUN conda env create --file environment-ufs-default.yaml
+COPY environment.yaml /opt/build/environment.yaml
+RUN conda env create -f /opt/build/environment.yaml
+RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda --help
+
+COPY src/ufs_conda /opt/build/src/ufs_conda/
+COPY pyproject.toml /opt/build
+COPY template /opt/build/template/
+COPY environment /opt/build/environment/
+
+WORKDIR /opt/build
+
+RUN conda run -n ufs-conda-envs --no-capture-output pip install .
+
+RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda create --all --platform=docker
+
+COPY src/test /opt/build/src/test/
+RUN conda run -n ufs-conda-envs --no-capture-output pytest src/test/docker_env_verify.py

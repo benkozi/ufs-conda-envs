@@ -1,0 +1,11 @@
+name: ufs-conda-envs
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - typer
+  - pydantic
+  - pytest
+  - pytest-mock
+  - pip:
+      - git+https://github.com/benkozi/ufs-conda-envs@feat/i3-land-da

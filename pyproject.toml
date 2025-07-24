@@ -1,0 +1,12 @@
+[project]
+name = "ufs-conda-envs"
+version = "0.1.0"
+description = "Manages UFS conda environments"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Ben Koziol", email = "benjamin.koziol@noaa.gov" }
+]
+
+[project.scripts]
+ufs-conda = "ufs_conda.ufs_conda_cli:app"
