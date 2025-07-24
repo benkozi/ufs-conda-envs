@@ -4,6 +4,7 @@ channels:
   - nodefaults
 dependencies:
   - typer
+  - pydantic
   - pytest
   - pytest-mock
   - pip:
