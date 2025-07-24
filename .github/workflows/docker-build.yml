@@ -20,6 +20,6 @@ jobs:
       with:
         context: .
         push: false
-        tags: ufs-conda-envs:${{ github.head_ref }}
+        tags: ufs-conda-envs:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
