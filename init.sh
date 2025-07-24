@@ -16,6 +16,4 @@ bash ./${installer} -bfp ${full_path}
 rm ${installer}
 
 conda_bin=${full_path}/condabin/conda
-${conda_bin} config --remove channels main
-${conda_bin} config --remove channels r
 ${conda_bin} env create -f environment.yaml

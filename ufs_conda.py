@@ -25,11 +25,24 @@ class CreateContext(BaseModel):
 
     @computed_field
     def install_dir(self) -> Path:
-        return Path(PLATFORM_CONFIG[self.platform]["install_dir"]).absolute().resolve()
+        return Path(PLATFORM_CONFIG[self.platform]["install_dir"]).absolute().resolve(strict=True)
+
+    @computed_field
+    def conda_root(self) -> Path:
+        options = (
+            self.install_dir / "miniconda3" / "condabin",
+            self.install_dir / "condabin"
+        )
+        for opt in options:
+            try:
+                return opt.absolute().resolve(strict=True).parent
+            except FileNotFoundError:
+                continue
+        raise ValueError("Conda binary not found")
 
     @computed_field
     def conda_bin(self) -> Path:
-        return self.install_dir / "miniconda3" / "bin" / "condabin" / "conda"
+        return (self.conda_root / "condabin" / "conda").absolute().resolve(strict=True)
 
     @computed_field
     def help_description(self) -> str:
@@ -64,7 +77,7 @@ PLATFORM_CONFIG = {
         "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
     },
     Platform.docker: {
-        "install_dir": "/opt/ufs-conda",
+        "install_dir": "/opt/conda",
     }
 }
 
@@ -113,7 +126,7 @@ def install_conda_env(ctx: CreateContext) -> None:
 
     # Process template using string replacement
     processed_content = template_content.replace("__HELP_DESCRIPTION__", ctx.help_description)
-    processed_content = processed_content.replace("__INSTALL_DIR__", str(ctx.install_dir))
+    processed_content = processed_content.replace("__CONDA_ROOT__", str(ctx.conda_root))
     processed_content = processed_content.replace("__CONDA_ENV_NAME__", ctx.conda_env_name)
 
     # Write processed template to destination
