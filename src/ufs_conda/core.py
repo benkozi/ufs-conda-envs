@@ -2,11 +2,8 @@ import subprocess
 from enum import StrEnum, unique
 from pathlib import Path
 
-import typer
 from pydantic import BaseModel, computed_field
-from typing_extensions import Annotated
 
-app = typer.Typer()
 
 @unique
 class Platform(StrEnum):
@@ -14,10 +11,12 @@ class Platform(StrEnum):
     hera = "hera"
     docker = "docker"
 
+
 @unique
 class EnvKey(StrEnum):
     default = "default"
     land_da_wflow = "land-da-wflow"
+
 
 class CreateContext(BaseModel):
     env_key: EnvKey
@@ -25,13 +24,17 @@ class CreateContext(BaseModel):
 
     @computed_field
     def install_dir(self) -> Path:
-        return Path(PLATFORM_CONFIG[self.platform]["install_dir"]).absolute().resolve(strict=True)
+        return (
+            Path(PLATFORM_CONFIG[self.platform]["install_dir"])
+            .absolute()
+            .resolve(strict=True)
+        )
 
     @computed_field
     def conda_root(self) -> Path:
         options = (
             self.install_dir / "miniconda3" / "condabin",
-            self.install_dir / "condabin"
+            self.install_dir / "condabin",
         )
         for opt in options:
             try:
@@ -68,6 +71,7 @@ class CreateContext(BaseModel):
     def modulefiles_install_dir(self) -> Path:
         return (self.install_dir / "modulefiles").absolute().resolve()
 
+
 # Configuration dictionaries
 PLATFORM_CONFIG = {
     Platform.gaeac6: {
@@ -78,41 +82,25 @@ PLATFORM_CONFIG = {
     },
     Platform.docker: {
         "install_dir": "/opt/conda",
-    }
+    },
 }
 
 ENV_CONFIG = {
     EnvKey.default: {
         "help_description": "UFS default Python environment",
-        "module_name": "python-ufs-default"
+        "module_name": "python-ufs-default",
     },
     EnvKey.land_da_wflow: {
         "help_description": "Land DA workflow Python environment",
-        "module_name": "python-ufs-land-da-wflow"
-    }
+        "module_name": "python-ufs-land-da-wflow",
+    },
 }
 
-@app.command()
-def create(
-    env_key: Annotated[EnvKey, typer.Option("--env-key", help="Conda environment type")] = EnvKey.default,
-    platform: Annotated[Platform, typer.Option("--platform", help="Target platform")] = Platform.docker
-):
-    ctx = CreateContext(env_key=env_key, platform=platform)
-    typer.echo(f"{ctx=}")
-    install_conda_env(ctx)
-
-@app.command()
-def remove():
-    raise NotImplementedError
 
 def install_conda_env(ctx: CreateContext) -> None:
     # Create conda environment from yaml file
     env_file = ctx.conda_env_def_dir / f"environment-ufs-{ctx.env_key.value}.yaml"
-    subprocess.check_call([
-        str(ctx.conda_bin),
-        "env", "create",
-        "-f", str(env_file)
-    ])
+    subprocess.check_call([str(ctx.conda_bin), "env", "create", "-f", str(env_file)])
 
     # Create modulefiles directory and process templates
     module_dst = ctx.install_dir / "modulefiles" / f"python-{ctx.conda_env_name}"
@@ -125,14 +113,14 @@ def install_conda_env(ctx: CreateContext) -> None:
     template_content = ctx.modulefile_template.read_text()
 
     # Process template using string replacement
-    processed_content = template_content.replace("__HELP_DESCRIPTION__", ctx.help_description)
+    processed_content = template_content.replace(
+        "__HELP_DESCRIPTION__", ctx.help_description
+    )
     processed_content = processed_content.replace("__CONDA_ROOT__", str(ctx.conda_root))
-    processed_content = processed_content.replace("__CONDA_ENV_NAME__", ctx.conda_env_name)
+    processed_content = processed_content.replace(
+        "__CONDA_ENV_NAME__", ctx.conda_env_name
+    )
 
     # Write processed template to destination
     output_file = module_dst / "3.lua"
     output_file.write_text(processed_content)
-
-
-if __name__ == "__main__":
-    app()
