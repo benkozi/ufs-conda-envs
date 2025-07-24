@@ -73,7 +73,11 @@ class CreateContext(BaseModel):
 
     @computed_field
     def prepend_path(self) -> Path:
-        return Path(self.conda_root / "envs" / self.conda_env_name / "bin").absolute().resolve()
+        return (
+            Path(self.conda_root / "envs" / self.conda_env_name / "bin")
+            .absolute()
+            .resolve()
+        )
 
 
 # Configuration dictionaries

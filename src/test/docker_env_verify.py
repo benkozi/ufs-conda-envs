@@ -1,7 +1,14 @@
 import subprocess
+from typing import Any
+
+import pytest
 
 from ufs_conda.core import EnvKey, CreateContext, Platform
 
+
+@pytest.fixture(params=tuple(EnvKey))
+def env_key(request: Any) -> EnvKey:
+    return request.param
 
 def test_which_python_output(env_key: EnvKey) -> None:
     ctx = CreateContext(env_key=env_key, platform=Platform.docker)

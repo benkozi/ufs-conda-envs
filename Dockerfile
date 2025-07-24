@@ -16,9 +16,7 @@ WORKDIR /opt/build
 
 RUN conda run -n ufs-conda-envs --no-capture-output pip install .
 
-RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda create --env-key default --platform docker
-RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda create --env-key land-da-wflow --platform docker
+RUN conda run -n ufs-conda-envs --no-capture-output ufs-conda create --all --platform=docker
 
 COPY src/test /opt/build/src/test/
-RUN conda run -n ufs-conda-envs --no-capture-output pytest src/test/docker_env_verify.py --env-key=default
-RUN conda run -n ufs-conda-envs --no-capture-output pytest src/test/docker_env_verify.py --env-key=land-da-wflow
+RUN conda run -n ufs-conda-envs --no-capture-output pytest src/test/docker_env_verify.py
