@@ -21,6 +21,7 @@ class EnvKey(StrEnum):
 class CreateContext(BaseModel):
     env_key: EnvKey
     platform: Platform
+    module_version: str
 
     @computed_field
     def install_dir(self) -> Path:
@@ -129,5 +130,5 @@ def install_conda_env(ctx: CreateContext) -> None:
     )
 
     # Write processed template to destination
-    output_file = module_dst / "3.lua"
+    output_file = module_dst / f"{ctx.module_version}.lua"
     output_file.write_text(processed_content)

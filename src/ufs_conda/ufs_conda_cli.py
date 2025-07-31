@@ -20,13 +20,18 @@ def create(
         bool,
         typer.Option("--all", help="Install all environments. Overrides --env-key"),
     ] = False,
+    module_vesion: Annotated[
+        str,
+        typer.Option("--module-version", help="Module version to install"),
+    ] = "3",
 ):
     if do_all:
         env_keys = tuple(EnvKey)
     else:
         env_keys = (env_key,)
     contexts = [
-        CreateContext(env_key=env_key, platform=platform) for env_key in env_keys
+        CreateContext(env_key=env_key, platform=platform, module_version=module_vesion)
+        for env_key in env_keys
     ]
     for ctx in contexts:
         typer.echo(f"{ctx=}")
