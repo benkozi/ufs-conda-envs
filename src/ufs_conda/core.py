@@ -54,11 +54,11 @@ class CreateContext(BaseModel):
 
     @computed_field
     def module_name(self) -> str:
-        return ENV_CONFIG[self.env_key]["module_name"]
+        return f"python-{self.env_key.value}"
 
     @computed_field
     def conda_env_name(self) -> str:
-        return f"ufs-{self.env_key.value}"
+        return f"ufs-{self.env_key.value}-20250731"
 
     @computed_field
     def conda_env_def_dir(self) -> Path:
@@ -97,11 +97,9 @@ PLATFORM_CONFIG = {
 ENV_CONFIG = {
     EnvKey.default: {
         "help_description": "UFS default Python environment",
-        "module_name": "python-ufs-default",
     },
     EnvKey.land_da_wflow: {
         "help_description": "Land DA workflow Python environment",
-        "module_name": "python-ufs-land-da-wflow",
     },
 }
 

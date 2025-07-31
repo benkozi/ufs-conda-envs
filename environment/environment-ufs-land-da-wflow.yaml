@@ -1,4 +1,4 @@
-name: ufs-land-da-wflow
+name: ufs-land-da-wflow-20250731
 channels:
   - conda-forge
   - ufs-community
