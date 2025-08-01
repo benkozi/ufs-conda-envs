@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+export PYTHONPATH=/gpfs/f6/bil-fire8/world-shared/UFS_Land-DA_v3.0/jedi_bundle_sync/build/lib/python3.11
+_CONDABIN=/gpfs/f6/bil-fire8/world-shared/ufs-conda/miniconda3/condabin/conda
+_CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-land-da-wflow-20250801-0854"
+
+${_CONDARUN} which python
+${_CONDARUN} which mpirun
