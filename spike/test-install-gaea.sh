@@ -12,7 +12,7 @@ _CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-land-da-wflow-20250801-08
 #${_CONDARUN} python -c "import pyiodaconv.ioda_conv_engines as iconv"
 
 module use /gpfs/f6/bil-fire8/world-shared/ufs-conda/modulefiles
-module load ufs-land-da-wflow-20250801-0854
+module load python-ufs-land-da-wflow-20250801-0854
 which python
 which mpirun
 python -c "from pyioda import ioda"
