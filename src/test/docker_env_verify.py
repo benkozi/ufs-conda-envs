@@ -12,7 +12,7 @@ def env_key(request: Any) -> EnvKey:
 
 
 def test_which_python_output(env_key: EnvKey) -> None:
-    ctx = CreateContext(env_key=env_key, platform=Platform.docker, module_version="3")
+    ctx = CreateContext(env_key=env_key, platform=Platform.docker, conda_env_version="3")
     command = (
         ". /usr/share/lmod/lmod/init/bash && "
         f"module use {ctx.modulefiles_install_dir} && "

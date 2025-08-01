@@ -1,4 +1,3 @@
-name: ufs-land-da-wflow-20250801-0854
 channels:
   - conda-forge
   - ufs-community

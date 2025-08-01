@@ -21,7 +21,7 @@ class EnvKey(StrEnum):
 class CreateContext(BaseModel):
     env_key: EnvKey
     platform: Platform
-    module_version: str
+    conda_env_version: str
 
     @computed_field
     def install_dir(self) -> Path:
@@ -58,7 +58,10 @@ class CreateContext(BaseModel):
 
     @computed_field
     def conda_env_name(self) -> str:
-        return f"ufs-{self.env_key.value}-20250801-0854"
+        ret = f"ufs-{self.env_key.value}"
+        if self.conda_env_version != "":
+            ret += f"-{self.conda_env_version}"
+        return ret
 
     @computed_field
     def conda_env_def_dir(self) -> Path:
@@ -79,6 +82,13 @@ class CreateContext(BaseModel):
             .absolute()
             .resolve()
         )
+
+    @computed_field
+    def modulefiles_env_install_dir(self) -> Path:
+        dirname = f"python-{self.conda_env_name}"
+        if self.conda_env_version != "":
+            dirname += f"-{self.conda_env_version}"
+        return (self.modulefiles_install_dir / dirname).absolute().resolve()
 
 
 # Configuration dictionaries
@@ -109,12 +119,8 @@ def install_conda_env(ctx: CreateContext) -> None:
     env_file = ctx.conda_env_def_dir / f"environment-ufs-{ctx.env_key.value}.yaml"
     subprocess.check_call([str(ctx.conda_bin), "env", "create", "-f", str(env_file)])
 
-    # Create modulefiles directory and process templates
-    module_dst = ctx.install_dir / "modulefiles" / f"python-{ctx.conda_env_name}"
-    module_dst.mkdir(parents=True, exist_ok=True)
-
     # Create modulefiles install directory
-    ctx.modulefiles_install_dir.mkdir(parents=True, exist_ok=True)
+    ctx.modulefiles_env_install_dir.mkdir(parents=True, exist_ok=True)
 
     # Read template file
     template_content = ctx.modulefile_template.read_text()
@@ -128,5 +134,5 @@ def install_conda_env(ctx: CreateContext) -> None:
     )
 
     # Write processed template to destination
-    output_file = module_dst / f"3.lua"
+    output_file = ctx.modulefiles_env_install_dir / f"3.lua"
     output_file.write_text(processed_content)
