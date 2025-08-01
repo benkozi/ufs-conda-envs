@@ -117,7 +117,17 @@ ENV_CONFIG = {
 def install_conda_env(ctx: CreateContext) -> None:
     # Create conda environment from yaml file
     env_file = ctx.conda_env_def_dir / f"environment-ufs-{ctx.env_key.value}.yaml"
-    subprocess.check_call([str(ctx.conda_bin), "env", "create", "-f", str(env_file)])
+    subprocess.check_call(
+        [
+            str(ctx.conda_bin),
+            "env",
+            "create",
+            "-n",
+            ctx.conda_env_name,
+            "-f",
+            str(env_file),
+        ]
+    )
 
     # Create modulefiles install directory
     ctx.modulefiles_env_install_dir.mkdir(parents=True, exist_ok=True)
