@@ -22,7 +22,10 @@ def create(
     ] = False,
     conda_env_version: Annotated[
         str,
-        typer.Option("--module-version", help="Module version to install"),
+        typer.Option(
+            "--module-version",
+            help="Conda environment version which is also applied to the module install directory.",
+        ),
     ] = "",
 ):
     if do_all:
