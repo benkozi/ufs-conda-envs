@@ -9,6 +9,7 @@ from pydantic import BaseModel, computed_field
 class Platform(StrEnum):
     gaeac6 = "gaeac6"
     hera = "hera"
+    orion_hercules = "orion-hercules"
     docker = "docker"
 
 
@@ -98,6 +99,9 @@ PLATFORM_CONFIG = {
     },
     Platform.hera: {
         "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
+    },
+    Platform.orion_hercules: {
+        "install_dir": "/work/noaa/epic/bwkoziol/tmp/ufs-conda",
     },
     Platform.docker: {
         "install_dir": "/opt/conda",
