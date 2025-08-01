@@ -9,3 +9,4 @@ _CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-land-da-wflow-20250801-08
 ${_CONDARUN} which python
 ${_CONDARUN} which mpirun
 ${_CONDARUN} python -c "from pyioda import ioda"
+${_CONDARUN} python -c "import pyiodaconv.ioda_conv_engines as iconv"
