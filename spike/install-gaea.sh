@@ -8,4 +8,5 @@ _CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-conda-envs"
 
 cd ${_WD}
 git pull
+${_CONDARUN} pip install .
 ${_CONDARUN} ufs-conda --help
