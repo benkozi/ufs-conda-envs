@@ -10,8 +10,9 @@ from ufs_conda.core import EnvKey, CreateContext, Platform
 def env_key(request: Any) -> EnvKey:
     return request.param
 
+
 def test_which_python_output(env_key: EnvKey) -> None:
-    ctx = CreateContext(env_key=env_key, platform=Platform.docker)
+    ctx = CreateContext(env_key=env_key, platform=Platform.docker, module_version="3")
     command = (
         ". /usr/share/lmod/lmod/init/bash && "
         f"module use {ctx.modulefiles_install_dir} && "
@@ -19,9 +20,6 @@ def test_which_python_output(env_key: EnvKey) -> None:
         "which python"
     )
     print(f"{command=}")
-    result = subprocess.check_output(
-        command,
-        shell=True
-    )
+    result = subprocess.check_output(command, shell=True)
     actual_output = result.decode("utf-8").strip()
     assert actual_output == str(ctx.prepend_path / "python")

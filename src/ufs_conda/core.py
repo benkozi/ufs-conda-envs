@@ -58,7 +58,7 @@ class CreateContext(BaseModel):
 
     @computed_field
     def conda_env_name(self) -> str:
-        return f"ufs-{self.env_key.value}-20250731"
+        return f"ufs-{self.env_key.value}-20250801-0854"
 
     @computed_field
     def conda_env_def_dir(self) -> Path:
@@ -128,5 +128,5 @@ def install_conda_env(ctx: CreateContext) -> None:
     )
 
     # Write processed template to destination
-    output_file = module_dst / f"{ctx.module_version}.lua"
+    output_file = module_dst / f"3.lua"
     output_file.write_text(processed_content)

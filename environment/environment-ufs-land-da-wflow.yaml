@@ -1,4 +1,4 @@
-name: ufs-land-da-wflow-20250731
+name: ufs-land-da-wflow-20250801-0854
 channels:
   - conda-forge
   - ufs-community
@@ -9,7 +9,7 @@ dependencies:
   - f90nml=1.4.3
   - jinja2=3.1.4
   - matplotlib=3.7.*
-  - netCDF4=1.7.*
+  - netCDF4=1.7.*=mpi_mpich*
   - numpy=1.26.4
   - pandas=2.2.3
   - pyyaml=6.0.2
