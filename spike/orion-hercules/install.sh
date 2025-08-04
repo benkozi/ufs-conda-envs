@@ -2,7 +2,7 @@
 
 set -xue
 
-_INSTALLDIR=/work/noaa/epic/bwkoziol/tmp/ufs-conda
+_INSTALLDIR=/work/noaa/epic/UFS-conda
 _CONDABIN=${_INSTALLDIR}/miniconda3/condabin/conda
 _CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-conda-envs"
 
