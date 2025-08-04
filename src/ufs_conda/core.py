@@ -23,14 +23,15 @@ class CreateContext(BaseModel):
     env_key: EnvKey
     platform: Platform
     conda_env_version: str
+    install_dir_override: Path | None
 
     @computed_field
     def install_dir(self) -> Path:
-        return (
-            Path(PLATFORM_CONFIG[self.platform]["install_dir"])
-            .absolute()
-            .resolve(strict=True)
+        install_dir_str = (
+            str(self.install_dir_override)
+            or PLATFORM_CONFIG[self.platform]["install_dir"]
         )
+        return Path(install_dir_str).absolute().resolve(strict=True)
 
     @computed_field
     def conda_root(self) -> Path:
@@ -101,7 +102,7 @@ PLATFORM_CONFIG = {
         "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
     },
     Platform.orion_hercules: {
-        "install_dir": "/work/noaa/epic/bwkoziol/tmp/ufs-conda",
+        "install_dir": "/work/noaa/epic/UFS-conda",
     },
     Platform.docker: {
         "install_dir": "/opt/conda",
