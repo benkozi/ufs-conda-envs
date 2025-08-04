@@ -9,10 +9,14 @@ fi
 
 INSTALL_DIR=$1
 
-if [ -e "${INSTALL_DIR}" ]; then
-  printf "Error: %s exists. Remove the install directory before proceeding" ${INSTALL_DIR}
-  exit 1
-fi
+# Uncomment to block installation if the directory exists -----
+
+#if [ -e "${INSTALL_DIR}" ]; then
+#  printf "Error: %s exists. Remove the install directory before proceeding" ${INSTALL_DIR}
+#  exit 1
+#fi
+
+# -----
 
 installer=Miniconda3-latest-Linux-x86_64.sh
 full_path="${INSTALL_DIR}/miniconda3"
