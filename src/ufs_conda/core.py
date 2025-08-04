@@ -27,11 +27,11 @@ class CreateContext(BaseModel):
 
     @computed_field
     def install_dir(self) -> Path:
-        install_dir_str = (
-            str(self.install_dir_override)
-            or PLATFORM_CONFIG[self.platform]["install_dir"]
-        )
-        return Path(install_dir_str).absolute().resolve(strict=True)
+        if self.install_dir_override is None:
+            ret = Path(PLATFORM_CONFIG[self.platform]["install_dir"])
+        else:
+            ret = self.install_dir_override
+        return ret.absolute().resolve(strict=True)
 
     @computed_field
     def conda_root(self) -> Path:
