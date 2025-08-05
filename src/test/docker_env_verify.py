@@ -15,7 +15,7 @@ def test_which_python_output(env_key: EnvKey) -> None:
     ctx = CreateContext(
         env_key=env_key,
         platform=Platform.docker,
-        conda_env_version="3",
+        conda_env_version="",
         install_dir_override=None,
     )
     command = (
