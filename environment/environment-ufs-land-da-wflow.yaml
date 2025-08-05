@@ -1,19 +1,19 @@
-name: ufs-land-da-wflow
 channels:
   - conda-forge
   - ufs-community
   - nodefaults
 dependencies:
-  - cartopy
-  - f90nml
-  - jinja2
-  - matplotlib
-  - netCDF4
-  - numpy
-  - pandas
-  - pyyaml
-  - scipy
+  - python=3.11.7
+  - cartopy=0.24.*
+  - f90nml=1.4.3
+  - jinja2=3.1.4
+  - matplotlib=3.7.*
+  - netCDF4=1.7.*=mpi_mpich*
+  - numpy=1.26.4
+  - pandas=2.2.3
+  - pyyaml=6.0.2
+  - scipy=1.14.1
   - uwtools
-  - xarray
+  - xarray=2024.7.0
   - pip:
     - git+https://github.com/NOAA-EMC/jcb.git@develop

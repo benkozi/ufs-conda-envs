@@ -1,4 +1,3 @@
-name: ufs-default
 channels:
   - conda-forge
   - ufs-community
