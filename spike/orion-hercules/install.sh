@@ -11,5 +11,5 @@ _CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-conda-envs"
 cd ${_CLONEDIR}
 git pull
 git checkout ${_BRANCH}
-${_CONDARUN} ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --help
+${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --help
 #${_CONDARUN} ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --platform=orion-hercules --env-key=land-da-wflow --module-version="i11"
