@@ -88,8 +88,6 @@ class CreateContext(BaseModel):
     @computed_field
     def modulefiles_env_install_dir(self) -> Path:
         dirname = f"python-{self.conda_env_name}"
-        if self.conda_env_version != "":
-            dirname += f"-{self.conda_env_version}"
         return (self.modulefiles_install_dir / dirname).absolute().resolve()
 
 

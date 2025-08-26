@@ -15,5 +15,6 @@ dependencies:
   - scipy=1.14.1
   - uwtools
   - xarray=2024.7.0
+  - xesmf=0.8.10
   - pip:
     - git+https://github.com/NOAA-EMC/jcb.git@develop
