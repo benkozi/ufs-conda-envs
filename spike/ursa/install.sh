@@ -4,6 +4,8 @@ set -xue
 
 source ./env.sh
 
+export PYTHONPATH=${_CLONEDIR}/src
+
 cd ${_CLONEDIR}
 git pull
 git checkout ${_BRANCH}
