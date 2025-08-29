@@ -13,3 +13,4 @@ git pull
 git checkout ${_BRANCH}
 ${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --help
 ${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --platform=orion-hercules --env-key=land-da-wflow --module-version="i11"
+module purge && module use /work/noaa/epic/UFS-conda && module load python-ufs-land-da-wflow-i11
