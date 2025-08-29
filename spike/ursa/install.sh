@@ -2,7 +2,7 @@
 
 set -xue
 
-./env.sh
+source ./env.sh
 
 cd ${_CLONEDIR}
 git pull
