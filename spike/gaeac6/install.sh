@@ -1,12 +1,13 @@
 #!/bin/bash
 
-set -xue -o pipefail
+set -xue
 
-_WD=/gpfs/f6/bil-fire8/scratch/Benjamin.Koziol/sandbox/ufs-conda-envs
-_CONDABIN=/gpfs/f6/bil-fire8/world-shared/ufs-conda/miniconda3/condabin/conda
-_CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-conda-envs"
+source ./env.sh
 
-cd ${_WD}
+export PYTHONPATH=${_CLONEDIR}/src
+
+cd ${_CLONEDIR}
 git pull
-${_CONDARUN} pip install .
-${_CONDARUN} ufs-conda create --platform=gaeac6 --env-key=land-da-wflow
+git checkout ${_BRANCH}
+${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --help
+${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --platform=${_PLATFORM} --env-key=${_ENV_KEY} --module-version=${_MODULE_VERSION}
