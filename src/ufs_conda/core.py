@@ -11,6 +11,7 @@ class Platform(StrEnum):
     hera = "hera"
     orion_hercules = "orion-hercules"
     docker = "docker"
+    ursa = "ursa"
 
 
 @unique
@@ -88,8 +89,6 @@ class CreateContext(BaseModel):
     @computed_field
     def modulefiles_env_install_dir(self) -> Path:
         dirname = f"python-{self.conda_env_name}"
-        if self.conda_env_version != "":
-            dirname += f"-{self.conda_env_version}"
         return (self.modulefiles_install_dir / dirname).absolute().resolve()
 
 
@@ -99,6 +98,9 @@ PLATFORM_CONFIG = {
         "install_dir": "/gpfs/f6/bil-fire8/world-shared/ufs-conda",
     },
     Platform.hera: {
+        "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
+    },
+    Platform.ursa: {
         "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
     },
     Platform.orion_hercules: {

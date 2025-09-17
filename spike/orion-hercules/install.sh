@@ -4,11 +4,13 @@ set -xue
 
 _INSTALLDIR=/work/noaa/epic/UFS-conda
 _CLONEDIR=/work/noaa/epic/bwkoziol/sandbox/ufs-conda-envs
+_BRANCH=feat/i11-add-xesmf
 _CONDABIN=${_INSTALLDIR}/miniconda3/condabin/conda
 _CONDARUN="${_CONDABIN} run --no-capture-output -n ufs-conda-envs"
 
 cd ${_CLONEDIR}
 git pull
-${_CONDARUN} pip install .
-${_CONDARUN} ufs-conda create --help
-${_CONDARUN} ufs-conda create --platform=orion-hercules --all
+git checkout ${_BRANCH}
+${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --help
+${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --platform=orion-hercules --env-key=land-da-wflow --module-version="i11"
+module purge && module use /work/noaa/epic/UFS-conda && module load python-ufs-land-da-wflow-i11
