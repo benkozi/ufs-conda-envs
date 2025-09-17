@@ -2,20 +2,10 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  - python=3.11
-  - esmpy=*=mpi_mpich*
-  - pydantic
-  - typer
-  - hydra-core
-  - xarray
-  - mpi4py
-  - numpy
-  - netcdf4=*=mpi_mpich*
-  - matplotlib
+  - esmpy=8.4.*=mpi_mpich*
+  - mpi4py=4.*
+  - netcdf4=1.6.*=mpi_mpich*
+  - pydantic=2.*
   - pydantic-settings
-  - cartopy
-  - pyremap
-  - mypy #dev
-  - black #dev
-  - pytest #dev
-  - pytest-mock #dev
+  - pyremap=2.1.*
+  - python=3.11.*

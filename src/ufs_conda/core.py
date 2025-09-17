@@ -18,6 +18,7 @@ class Platform(StrEnum):
 class EnvKey(StrEnum):
     default = "default"
     land_da_wflow = "land-da-wflow"
+    mpas_aerosols = "mpas-aerosols"
 
 
 class CreateContext(BaseModel):
@@ -117,6 +118,9 @@ ENV_CONFIG = {
     },
     EnvKey.land_da_wflow: {
         "help_description": "Land DA workflow Python environment",
+    },
+    EnvKey.mpas_aerosols: {
+        "help_description": "MPAS-Aerosols (RRFSv2) Python environment",
     },
 }
 
