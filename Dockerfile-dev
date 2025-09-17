@@ -1,7 +1,0 @@
-FROM continuumio/miniconda3
-
-RUN apt-get update --yes && apt-get install --yes tmux vim less lmod
-RUN . /usr/share/lmod/lmod/init/bash && module --version
-
-COPY environment.yaml /opt/build/environment.yaml
-RUN conda env create -f /opt/build/environment.yaml
