@@ -2,6 +2,8 @@
 
 set -ue -o pipefail
 
+export PYTHONPATH=/glade/work/chanhooj/UFS-DA-Workflow_v1.0/jedi_bundle_sync/build/lib/python3.11/
+
 module use /glade/work/chanhooj/UFS-DA-ENV/ss19.2/modulefiles/
 module load mkl/2024.2.2
 
