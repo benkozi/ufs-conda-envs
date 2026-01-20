@@ -12,4 +12,3 @@ which python
 which mpirun
 python -c "from pyioda import ioda"
 python -c "import pyiodaconv.ioda_conv_engines as iconv"
-python -c "import uwtools; print(uwtools.__version__)"
