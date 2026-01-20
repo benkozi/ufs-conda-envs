@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ue -o pipefail
+set -xue -o pipefail
 
 export PYTHONPATH=/glade/work/chanhooj/UFS-DA-Workflow_v1.0/jedi_bundle_sync/build/lib/python3.11/
 
@@ -12,3 +12,4 @@ which python
 which mpirun
 python -c "from pyioda import ioda"
 python -c "import pyiodaconv.ioda_conv_engines as iconv"
+python -c "import uwtools; print(uwtools.__version__)"
