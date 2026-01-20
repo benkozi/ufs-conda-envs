@@ -12,3 +12,6 @@ which python
 which mpirun
 python -c "from pyioda import ioda"
 python -c "import pyiodaconv.ioda_conv_engines as iconv"
+
+source /glade/work/chanhooj/UFS-DA-ENV/ss19.2/miniconda3/etc/profile.d/conda.sh
+conda run -n ufs-land-da-wflow conda env list
