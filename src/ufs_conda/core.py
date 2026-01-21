@@ -12,6 +12,7 @@ class Platform(StrEnum):
     orion_hercules = "orion-hercules"
     docker = "docker"
     ursa = "ursa"
+    derecho = "derecho"
 
 
 @unique
@@ -108,6 +109,9 @@ PLATFORM_CONFIG = {
     },
     Platform.docker: {
         "install_dir": "/opt/conda",
+    },
+    Platform.derecho: {
+        "install_dir": "/glade/work/chanhooj/UFS-DA-ENV/ss19.2",
     },
 }
 

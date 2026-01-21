@@ -3,7 +3,7 @@ channels:
   - ufs-community
   - nodefaults
 dependencies:
-  - uwtools
+  - uwtools=2.9.1
   - scipy
   - xarray
   - pydantic
