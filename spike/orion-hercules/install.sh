@@ -14,7 +14,7 @@ git checkout ${_BRANCH}
 ${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --help
 
 ${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --platform=orion-hercules --env-key=land-da-wflow
-module purge && module use /work/noaa/epic/UFS-conda/modulefiles && module load python-ufs-land-da-wflow
+module purge && module use /work/noaa/epic/UFS-conda/modulefiles && module load python-ufs-land-da-wflow && python -c "from uwtools.api.rocoto import realize; print('success')"
 
 #${_CONDARUN} python ${_CLONEDIR}/src/ufs_conda/ufs_conda_cli.py create --platform=orion-hercules --env-key=land-da-wflow --module-version="20260205-1057"
 #module purge && module use /work/noaa/epic/UFS-conda/modulefiles && module load python-ufs-land-da-wflow-20260205-1057
