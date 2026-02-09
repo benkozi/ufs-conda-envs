@@ -5,7 +5,7 @@ set -xue
 # Directory to clone ufs-conda-envs to
 _CLONEDIR=/work/noaa/epic/bwkoziol/sandbox/ufs-conda-envs
 # Directory to install conda environments and modulefiles
-_INSTALLDIR=/work/noaa/epic/UFS-conda
+_INSTALLDIR=/work/noaa/epic/UFS-conda-v2
 
 # -----
 

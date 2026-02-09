@@ -105,7 +105,7 @@ PLATFORM_CONFIG = {
         "install_dir": "/scratch3/NAGAPE/epic/ufs-conda",
     },
     Platform.orion_hercules: {
-        "install_dir": "/work/noaa/epic/UFS-conda",
+        "install_dir": "/work/noaa/epic/UFS-conda-v2",
     },
     Platform.docker: {
         "install_dir": "/opt/conda",
